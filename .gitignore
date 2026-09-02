@@ -1,0 +1,26 @@
+# Secrets
+secrets.h
+credentials.h
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# PlatformIO / Arduino
+.pio/
+.pioenvs/
+.piolibdeps/
+build/
+*.bin
+*.elf
+
+# Node / Expo
+node_modules/
+.expo/
+dist/
+
+# Éditeur / OS
+.vscode/
+.idea/
+.DS_Store
