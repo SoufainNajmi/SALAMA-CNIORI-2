@@ -1,0 +1,20 @@
+{
+  "expo": {
+    "name": "SALAMA",
+    "slug": "salama",
+    "scheme": "salama",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "ma.cniori.salama"
+    },
+    "android": {
+      "package": "ma.cniori.salama"
+    },
+    "plugins": ["expo-router", "expo-localization", "expo-notifications"]
+  }
+}

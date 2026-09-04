@@ -1,0 +1,51 @@
+/**
+ * Implémentation HTTP réelle du contrat `ApiClient`.
+ * Utilisée quand USE_MOCKS === false.
+ */
+import type {
+  AckAlertRequest,
+  AckAlertResponse,
+  AlertsResponse,
+  HistoryRange,
+  HistoryResponse,
+  LoginRequest,
+  LoginResponse,
+  PushMeasurementsRequest,
+  RegisterDeviceRequest,
+  Status,
+  WearerProfile,
+} from "@/types/api";
+import type { ApiClient } from "../api";
+import { httpClient } from "../http";
+
+export const httpApi: ApiClient = {
+  login: (body: LoginRequest) =>
+    httpClient.post<LoginResponse>("/api/auth/login", body).then((r) => r.data),
+
+  getWearer: () =>
+    httpClient.get<WearerProfile>("/api/wearer").then((r) => r.data),
+
+  getStatus: () => httpClient.get<Status>("/api/status").then((r) => r.data),
+
+  getHistory: (range: HistoryRange) =>
+    httpClient
+      .get<HistoryResponse>("/api/history", { params: { range } })
+      .then((r) => r.data),
+
+  getAlerts: () =>
+    httpClient.get<AlertsResponse>("/api/alerts").then((r) => r.data),
+
+  ackAlert: (id: string, body?: AckAlertRequest) =>
+    httpClient
+      .post<AckAlertResponse>(`/api/alerts/${id}/ack`, body ?? {})
+      .then((r) => r.data),
+
+  registerDevice: (body: RegisterDeviceRequest) =>
+    httpClient.post("/api/devices", body).then(() => undefined),
+
+  unregisterDevice: (token: string) =>
+    httpClient.delete(`/api/devices/${encodeURIComponent(token)}`).then(() => undefined),
+
+  pushMeasurements: (body: PushMeasurementsRequest) =>
+    httpClient.post("/api/measurements", body).then(() => undefined),
+};

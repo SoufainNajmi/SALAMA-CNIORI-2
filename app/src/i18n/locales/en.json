@@ -1,0 +1,63 @@
+{
+  "commun": {
+    "chargement": "Loading…",
+    "fermer": "Close",
+    "reessayer": "Try again"
+  },
+  "onglets": {
+    "accueil": "Home",
+    "historique": "History",
+    "profil": "Profile"
+  },
+  "accueil": {
+    "titre": "Health status",
+    "derniereSync": "Last sync {{temps}}"
+  },
+  "etat": {
+    "ok": "All good",
+    "warning": "Needs attention",
+    "alert": "Emergency"
+  },
+  "vitaux": {
+    "fc": "Heart rate",
+    "spo2": "Blood oxygen",
+    "batterie": "Bracelet battery"
+  },
+  "unites": {
+    "bpm": "bpm"
+  },
+  "alertes": {
+    "type": {
+      "fall": "Fall detected",
+      "vitals": "Abnormal vital sign",
+      "offline": "Bracelet offline"
+    },
+    "taperPourVoir": "Tap to view",
+    "accuser": "I'm taking care of it",
+    "dejaAcquittee": "Handled by {{nom}}",
+    "bandeauTitre": "Unacknowledged alert"
+  },
+  "temps": {
+    "maintenant": "just now",
+    "minutes": "{{count}} min ago",
+    "heures": "{{count}} h ago",
+    "jours": "{{count}} d ago"
+  },
+  "historique": {
+    "bientot": "Coming soon"
+  },
+  "profil": {
+    "bientot": "Coming soon"
+  },
+  "appairage": {
+    "bientot": "Pairing — coming soon"
+  },
+  "erreurs": {
+    "network_error": "Connection problem. Check your internet.",
+    "timeout": "The server is taking too long to respond.",
+    "unauthorized": "Session expired. Please sign in again.",
+    "not_found": "Not found.",
+    "invalid_range": "Invalid time range.",
+    "inconnu": "Something went wrong."
+  }
+}

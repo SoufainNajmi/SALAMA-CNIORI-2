@@ -1,0 +1,63 @@
+{
+  "commun": {
+    "chargement": "جارٍ التحميل…",
+    "fermer": "إغلاق",
+    "reessayer": "إعادة المحاولة"
+  },
+  "onglets": {
+    "accueil": "الرئيسية",
+    "historique": "السجل",
+    "profil": "الملف"
+  },
+  "accueil": {
+    "titre": "الحالة الصحية",
+    "derniereSync": "آخر مزامنة {{temps}}"
+  },
+  "etat": {
+    "ok": "كل شيء على ما يرام",
+    "warning": "يتطلب الانتباه",
+    "alert": "حالة طارئة"
+  },
+  "vitaux": {
+    "fc": "نبض القلب",
+    "spo2": "الأكسجين في الدم",
+    "batterie": "بطارية السوار"
+  },
+  "unites": {
+    "bpm": "ن/د"
+  },
+  "alertes": {
+    "type": {
+      "fall": "تم اكتشاف سقوط",
+      "vitals": "مؤشر حيوي غير طبيعي",
+      "offline": "السوار غير متصل"
+    },
+    "taperPourVoir": "اضغط للعرض",
+    "accuser": "أنا أتكفّل بالأمر",
+    "dejaAcquittee": "تكفّل بها {{nom}}",
+    "bandeauTitre": "تنبيه غير مؤكَّد"
+  },
+  "temps": {
+    "maintenant": "الآن",
+    "minutes": "منذ {{count}} دقيقة",
+    "heures": "منذ {{count}} ساعة",
+    "jours": "منذ {{count}} يوم"
+  },
+  "historique": {
+    "bientot": "قريبًا"
+  },
+  "profil": {
+    "bientot": "قريبًا"
+  },
+  "appairage": {
+    "bientot": "الإقران — قريبًا"
+  },
+  "erreurs": {
+    "network_error": "مشكل في الاتصال. تحقّق من الإنترنت.",
+    "timeout": "الخادم يستغرق وقتًا طويلاً للرد.",
+    "unauthorized": "انتهت الجلسة. يرجى تسجيل الدخول من جديد.",
+    "not_found": "غير موجود.",
+    "invalid_range": "المدة الزمنية غير صالحة.",
+    "inconnu": "حدث خطأ ما."
+  }
+}
