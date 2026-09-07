@@ -8,6 +8,11 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   presets: [require("nativewind/preset")],
+  // L'app est en thème clair uniquement (app.json -> userInterfaceStyle: "light").
+  // `class` évite un crash de NativeWind sur le web : en mode "media", son
+  // observateur de thème lève « Cannot manually set color scheme ». Aucun impact
+  // visuel (aucune classe `dark:` utilisée).
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
