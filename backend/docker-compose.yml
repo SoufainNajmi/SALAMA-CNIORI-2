@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  salama-mysql:
+    image: mysql:8.0
+    container_name: salama-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: salama_root_pw
+      MYSQL_DATABASE: salama
+      MYSQL_USER: salama_user
+      MYSQL_PASSWORD: salama_pw
+    ports:
+      - "3308:3306"          # host:container — évite le conflit avec NajmiNet (souvent 3306/3307)
+    volumes:
+      - salama_mysql_data:/var/lib/mysql
+      # Tout .sql placé ici est exécuté automatiquement au tout premier démarrage du conteneur
+      - ./salama_schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+    networks:
+      - salama-net
+
+  salama-phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: salama-phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: salama-mysql
+      PMA_PORT: 3306
+    ports:
+      - "8083:80"             # évite le conflit avec NajmiNet (8081) et l'app Expo (8082)
+    depends_on:
+      - salama-mysql
+    networks:
+      - salama-net
+
+networks:
+  salama-net:
+    driver: bridge
+
+volumes:
+  salama_mysql_data:

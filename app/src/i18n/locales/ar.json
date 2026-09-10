@@ -2,16 +2,42 @@
   "commun": {
     "chargement": "جارٍ التحميل…",
     "fermer": "إغلاق",
-    "reessayer": "إعادة المحاولة"
+    "reessayer": "إعادة المحاولة",
+    "annuler": "إلغاء"
   },
   "onglets": {
     "accueil": "الرئيسية",
     "historique": "السجل",
     "profil": "الملف"
   },
+  "connexion": {
+    "sousTitre": "متابعة صحية متصلة لأحبائك",
+    "roleMeriid": "أنا الشخص المتابَع",
+    "roleFamille": "أنا أحد أفراد العائلة",
+    "telephone": "رقم الهاتف",
+    "motDePasse": "كلمة المرور",
+    "motDePasseOublie": "نسيت كلمة المرور؟",
+    "seConnecter": "تسجيل الدخول",
+    "creerCompte": "إنشاء حساب",
+    "erreur": "رقم الهاتف أو كلمة المرور غير صحيحة."
+  },
+  "inscription": {
+    "titre": "إنشاء حساب",
+    "nomComplet": "الاسم الكامل",
+    "confirmerMotDePasse": "تأكيد كلمة المرور",
+    "codeInvitation": "رمز الدعوة",
+    "codeInvitationAide": "اطلب هذا الرمز من الشخص الذي سجّل من قبل.",
+    "creerCompte": "إنشاء الحساب",
+    "dejaCompte": "لديك حساب بالفعل؟",
+    "seConnecter": "تسجيل الدخول",
+    "erreurMotDePasse": "كلمتا المرور غير متطابقتين.",
+    "erreurCodeRequis": "رمز الدعوة إلزامي."
+  },
   "accueil": {
-    "titre": "الحالة الصحية",
-    "derniereSync": "آخر مزامنة {{temps}}"
+    "salutation": "مرحبًا، {{nom}}",
+    "derniereSync": "آخر مزامنة {{temps}}",
+    "appelerFamille": "الاتصال بالعائلة",
+    "contactPrioritaire": "جهة الاتصال الأولى: {{nom}}"
   },
   "etat": {
     "ok": "كل شيء على ما يرام",
@@ -21,10 +47,16 @@
   "vitaux": {
     "fc": "نبض القلب",
     "spo2": "الأكسجين في الدم",
-    "batterie": "بطارية السوار"
+    "batterie": "بطارية السوار",
+    "derniereSync": "آخر مزامنة",
+    "connectivite": "الاتصال",
+    "enLigne": "متصل",
+    "horsLigne": "غير متصل"
   },
   "unites": {
-    "bpm": "ن/د"
+    "bpm": "ن/د",
+    "cm": "سم",
+    "kg": "كغ"
   },
   "alertes": {
     "type": {
@@ -47,7 +79,35 @@
     "bientot": "قريبًا"
   },
   "profil": {
-    "bientot": "قريبًا"
+    "bientot": "قريبًا",
+    "codeInvitationTitre": "رمز دعوة العائلة",
+    "codeInvitationAide": "شارك هذا الرمز مع أحد أفراد العائلة لينضم إلى المتابعة.",
+    "copier": "نسخ",
+    "copie": "تم النسخ!",
+    "regenererCode": "توليد رمز جديد",
+    "regenererConfirmationTitre": "توليد رمز جديد؟",
+    "regenererConfirmationMessage": "لن يعمل الرمز القديم بعد الآن. متابعة؟",
+    "regenererConfirmationAnnuler": "إلغاء",
+    "regenererConfirmationConfirmer": "توليد",
+    "ans": "{{age}} سنة",
+    "groupeSanguin": "فصيلة الدم",
+    "tailleEtPoids": "الطول والوزن",
+    "allergiesTitre": "الحساسية",
+    "ajouterAllergie": "+ إضافة",
+    "aucuneAllergie": "لا توجد حساسية معروفة",
+    "maladiesChroniquesTitre": "أمراض مزمنة",
+    "aucuneMaladie": "لا توجد أمراض مزمنة معروفة",
+    "nouvelleAllergiePlaceholder": "اسم الحساسية",
+    "ajouter": "إضافة",
+    "enregistrer": "حفظ",
+    "champLibelle": "الاسم",
+    "champNotes": "ملاحظات",
+    "supprimerAllergieTitre": "حذف هذه الحساسية؟",
+    "supprimerAllergieMessage": "سيتم حذف «{{label}}» من القائمة.",
+    "supprimer": "حذف",
+    "modifierMaladieTitre": "تعديل",
+    "deconnexion": "تسجيل الخروج",
+    "deconnexionConfirmationTitre": "هل تريد فعلاً تسجيل الخروج؟"
   },
   "appairage": {
     "bientot": "الإقران — قريبًا"
@@ -58,6 +118,8 @@
     "unauthorized": "انتهت الجلسة. يرجى تسجيل الدخول من جديد.",
     "not_found": "غير موجود.",
     "invalid_range": "المدة الزمنية غير صالحة.",
+    "invalid_invite_code": "رمز الدعوة غير صالح.",
+    "phone_taken": "رقم الهاتف هذا مستخدم بالفعل.",
     "inconnu": "حدث خطأ ما."
   }
 }

@@ -4,26 +4,65 @@
  */
 import type {
   AckAlertRequest,
+  AddAllergyRequest,
   HistoryRange,
   LoginRequest,
   PushMeasurementsRequest,
   RegisterDeviceRequest,
+  RegisterRequest,
+  UpdateChronicConditionRequest,
 } from "@/types/api";
 import type { ApiClient } from "../api";
 import { delaiSimule } from "./latency";
 import { ackAlertMock, alertsMock } from "./alerts.mock";
 import { historyMock } from "./history.mock";
+import {
+  codeInvitationValideMock,
+  inviteCodeMock,
+  regenererInviteCodeMock,
+} from "./household.mock";
 import { statusMock } from "./status.mock";
-import { wearerMock } from "./wearer.mock";
+import {
+  ajouterAllergieMock,
+  modifierMaladieChroniqueMock,
+  retirerAllergieMock,
+  wearerSnapshotMock,
+} from "./wearer.mock";
+
+// Compte démo unique : rattaché au household de la porteuse mockée
+// (فاطمة بناني), suivie depuis un rôle "famille" — voir wearer.mock.ts.
+const SESSION_DEMO = {
+  token: "mock-token",
+  expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+};
 
 export const mockApi: ApiClient = {
   login: (_body: LoginRequest) =>
-    delaiSimule({
-      token: "mock-token",
-      expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
-    }),
+    delaiSimule({ ...SESSION_DEMO, role: "famille" as const }),
 
-  getWearer: () => delaiSimule(wearerMock),
+  register: async (body: RegisterRequest) => {
+    if (body.role === "famille") {
+      if (!body.inviteCode || !(await codeInvitationValideMock(body.inviteCode))) {
+        throw { code: "invalid_invite_code", message: "Code d'invitation invalide." };
+      }
+    }
+    // Mock sans base d'utilisateurs réelle : on connecte directement avec le
+    // rôle choisi à l'inscription (le vrai backend le renverra depuis la BDD).
+    return delaiSimule({ ...SESSION_DEMO, role: body.role }, 800);
+  },
+
+  getInviteCode: async () => delaiSimule(await inviteCodeMock()),
+
+  regenerateInviteCode: async () => delaiSimule(await regenererInviteCodeMock(), 400),
+
+  getWearer: () => delaiSimule(wearerSnapshotMock()),
+
+  addAllergy: (body: AddAllergyRequest) => delaiSimule(ajouterAllergieMock(body.label), 400),
+
+  removeAllergy: (id: string) => delaiSimule(retirerAllergieMock(id), 300),
+
+  updateChronicCondition: (id: string, body: UpdateChronicConditionRequest) =>
+    delaiSimule(modifierMaladieChroniqueMock(id, body), 400),
 
   getStatus: () => delaiSimule(statusMock()),
 

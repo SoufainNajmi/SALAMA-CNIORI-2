@@ -1,15 +1,16 @@
 /**
- * Grande carte d'état de santé, colorée selon `status.state`
- * (vert / orange / rouge). Élément central de l'écran d'accueil.
+ * Carte d'état de santé principale de l'accueil : pill de statut, dernière
+ * synchro (texte), puis le vital le plus important (FC) en grand.
+ * Élément central de l'écran d'accueil.
  */
 import { Text, View } from "react-native";
 import { useTranslation } from "react-i18next";
 
 import type { Status } from "@/types/api";
-import { classeFondEtat, cleLibelleEtat } from "@/lib/etat";
+import { cleLibelleEtat } from "@/lib/etat";
 import { tempsRelatif } from "@/lib/datetime";
 import { fmtNombre } from "@/lib/format";
-import { VitalTile } from "./VitalTile";
+import { StatusPill } from "./StatusPill";
 
 interface Props {
   status: Status;
@@ -18,34 +19,29 @@ interface Props {
 export function StatusCard({ status }: Props) {
   const { t } = useTranslation();
 
+  // Le rouge (critical) est réservé à l'écran d'alerte plein écran : ici,
+  // un état "alert" retombe visuellement sur le ton "warn".
+  const ton = status.state === "ok" ? "ok" : "warn";
+  const fondClasse = ton === "ok" ? "bg-primary" : "bg-warn";
+
   return (
-    <View className={`rounded-3xl p-6 ${classeFondEtat[status.state]}`}>
-      <Text className="text-white text-3xl font-extrabold">
-        {t(cleLibelleEtat[status.state])}
-      </Text>
-      <Text className="text-white/90 text-base mt-1">
+    <View className={`rounded-3xl p-6 ${fondClasse}`}>
+      <StatusPill ton={ton}>{t(cleLibelleEtat[status.state])}</StatusPill>
+
+      <Text className="text-white/70 text-sm mt-4">
         {t("accueil.derniereSync", { temps: tempsRelatif(status.lastSyncAt) })}
       </Text>
 
-      <View className="flex-row mt-6" style={{ gap: 12 }}>
-        <VitalTile
-          libelle={t("vitaux.fc")}
-          valeur={fmtNombre(status.heartRate)}
-          unite={t("unites.bpm")}
-        />
-        <VitalTile
-          libelle={t("vitaux.spo2")}
-          valeur={fmtNombre(status.spo2)}
-          unite="%"
-        />
-      </View>
-
       <View className="mt-3">
-        <VitalTile
-          libelle={t("vitaux.batterie")}
-          valeur={fmtNombre(status.battery)}
-          unite="%"
-        />
+        <Text className="text-white/80 text-base">{t("vitaux.fc")}</Text>
+        <View className="flex-row items-end">
+          <Text className="text-white text-6xl font-extrabold">
+            {fmtNombre(status.heartRate)}
+          </Text>
+          <Text className="text-white/80 text-xl ms-2 mb-2">
+            {t("unites.bpm")}
+          </Text>
+        </View>
       </View>
     </View>
   );

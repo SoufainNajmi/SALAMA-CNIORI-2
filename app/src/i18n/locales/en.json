@@ -2,16 +2,42 @@
   "commun": {
     "chargement": "Loading…",
     "fermer": "Close",
-    "reessayer": "Try again"
+    "reessayer": "Try again",
+    "annuler": "Cancel"
   },
   "onglets": {
     "accueil": "Home",
     "historique": "History",
     "profil": "Profile"
   },
+  "connexion": {
+    "sousTitre": "Connected health monitoring for your loved ones",
+    "roleMeriid": "I am the person being cared for",
+    "roleFamille": "I am a family member",
+    "telephone": "Phone",
+    "motDePasse": "Password",
+    "motDePasseOublie": "Forgot password?",
+    "seConnecter": "Sign in",
+    "creerCompte": "Create an account",
+    "erreur": "Incorrect phone number or password."
+  },
+  "inscription": {
+    "titre": "Create an account",
+    "nomComplet": "Full name",
+    "confirmerMotDePasse": "Confirm password",
+    "codeInvitation": "Invitation code",
+    "codeInvitationAide": "Ask this code from your loved one who already registered.",
+    "creerCompte": "Create account",
+    "dejaCompte": "Already have an account?",
+    "seConnecter": "Sign in",
+    "erreurMotDePasse": "Passwords don't match.",
+    "erreurCodeRequis": "The invitation code is required."
+  },
   "accueil": {
-    "titre": "Health status",
-    "derniereSync": "Last sync {{temps}}"
+    "salutation": "Hello, {{nom}}",
+    "derniereSync": "Last sync {{temps}}",
+    "appelerFamille": "Call family",
+    "contactPrioritaire": "Priority contact: {{nom}}"
   },
   "etat": {
     "ok": "All good",
@@ -21,10 +47,16 @@
   "vitaux": {
     "fc": "Heart rate",
     "spo2": "Blood oxygen",
-    "batterie": "Bracelet battery"
+    "batterie": "Bracelet battery",
+    "derniereSync": "Last sync",
+    "connectivite": "Connectivity",
+    "enLigne": "Online",
+    "horsLigne": "Offline"
   },
   "unites": {
-    "bpm": "bpm"
+    "bpm": "bpm",
+    "cm": "cm",
+    "kg": "kg"
   },
   "alertes": {
     "type": {
@@ -47,7 +79,35 @@
     "bientot": "Coming soon"
   },
   "profil": {
-    "bientot": "Coming soon"
+    "bientot": "Coming soon",
+    "codeInvitationTitre": "Family invitation code",
+    "codeInvitationAide": "Share this code with a family member so they can join.",
+    "copier": "Copy",
+    "copie": "Copied!",
+    "regenererCode": "Regenerate code",
+    "regenererConfirmationTitre": "Regenerate the code?",
+    "regenererConfirmationMessage": "The old code will stop working. Continue?",
+    "regenererConfirmationAnnuler": "Cancel",
+    "regenererConfirmationConfirmer": "Regenerate",
+    "ans": "{{age}} y/o",
+    "groupeSanguin": "Blood type",
+    "tailleEtPoids": "Height & weight",
+    "allergiesTitre": "Allergies",
+    "ajouterAllergie": "+ Add",
+    "aucuneAllergie": "No known allergies",
+    "maladiesChroniquesTitre": "Chronic conditions",
+    "aucuneMaladie": "No known chronic conditions",
+    "nouvelleAllergiePlaceholder": "Allergy name",
+    "ajouter": "Add",
+    "enregistrer": "Save",
+    "champLibelle": "Name",
+    "champNotes": "Notes",
+    "supprimerAllergieTitre": "Remove this allergy?",
+    "supprimerAllergieMessage": "\"{{label}}\" will be removed from the list.",
+    "supprimer": "Remove",
+    "modifierMaladieTitre": "Edit",
+    "deconnexion": "Log out",
+    "deconnexionConfirmationTitre": "Are you sure you want to log out?"
   },
   "appairage": {
     "bientot": "Pairing — coming soon"
@@ -58,6 +118,8 @@
     "unauthorized": "Session expired. Please sign in again.",
     "not_found": "Not found.",
     "invalid_range": "Invalid time range.",
+    "invalid_invite_code": "Invalid invitation code.",
+    "phone_taken": "This phone number is already in use.",
     "inconnu": "Something went wrong."
   }
 }
