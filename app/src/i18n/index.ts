@@ -16,8 +16,9 @@ import { I18nManager } from "react-native";
 
 import ar from "./locales/ar.json";
 import en from "./locales/en.json";
+import fr from "./locales/fr.json";
 
-export const LANGUES_SUPPORTEES = ["ar", "en"] as const;
+export const LANGUES_SUPPORTEES = ["ar", "en", "fr"] as const;
 export type Langue = (typeof LANGUES_SUPPORTEES)[number];
 
 export const LANGUE_PAR_DEFAUT: Langue = "ar";
@@ -64,6 +65,7 @@ i18n.use(initReactI18next).init({
   resources: {
     ar: { translation: ar },
     en: { translation: en },
+    fr: { translation: fr },
   },
   lng: langueInitiale,
   fallbackLng: LANGUE_PAR_DEFAUT,

@@ -8,14 +8,21 @@
 import type {
   AckAlertRequest,
   AckAlertResponse,
+  AddAllergyRequest,
   AlertsResponse,
+  Allergy,
+  ChronicCondition,
   HistoryRange,
   HistoryResponse,
+  InviteCodeResponse,
   LoginRequest,
   LoginResponse,
   PushMeasurementsRequest,
   RegisterDeviceRequest,
+  RegisterRequest,
+  RegisterResponse,
   Status,
+  UpdateChronicConditionRequest,
   WearerProfile,
 } from "@/types/api";
 import { USE_MOCKS } from "./config";
@@ -25,7 +32,16 @@ import { mockApi } from "./mock";
 /** Contrat commun aux deux implémentations (mock et HTTP). */
 export interface ApiClient {
   login(body: LoginRequest): Promise<LoginResponse>;
+  register(body: RegisterRequest): Promise<RegisterResponse>;
+  getInviteCode(): Promise<InviteCodeResponse>;
+  regenerateInviteCode(): Promise<InviteCodeResponse>;
   getWearer(): Promise<WearerProfile>;
+  addAllergy(body: AddAllergyRequest): Promise<Allergy>;
+  removeAllergy(id: string): Promise<void>;
+  updateChronicCondition(
+    id: string,
+    body: UpdateChronicConditionRequest,
+  ): Promise<ChronicCondition>;
   getStatus(): Promise<Status>;
   getHistory(range: HistoryRange): Promise<HistoryResponse>;
   getAlerts(): Promise<AlertsResponse>;

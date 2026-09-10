@@ -21,17 +21,36 @@
  *
  *  Authentification
  *  ----------------
- *  - Un seul compte "famille" par porteur pour cette version.
+ *  - Deux rôles de compte : "meriid" (le proche suivi) et "famille" (aidant).
+ *    Le rôle est fixé à l'inscription (voir POST /api/auth/register) et
+ *    renvoyé par le backend à chaque connexion — l'app ne le déduit JAMAIS
+ *    d'un choix local uniquement : la valeur qui fait foi est celle du compte
+ *    côté serveur.
  *  - POST /api/auth/login renvoie un jeton Bearer.
  *  - Ce jeton est envoyé sur TOUTES les autres routes dans l'en-tête :
  *        Authorization: Bearer <token>
  *  - Jeton absent, invalide ou expiré -> 401 + ApiError { code: "unauthorized" }.
  *    L'app déconnecte alors l'utilisateur et renvoie vers l'écran de connexion.
  *
+ *  Ménage ("household")
+ *  ---------------------
+ *  - Un compte "meriid" possède un household (généré à l'inscription) avec un
+ *    code d'invitation unique (6-8 caractères alphanumériques).
+ *  - Un compte "famille" s'inscrit en fournissant ce code pour rejoindre le
+ *    household correspondant. Code inconnu -> 400 + ApiError
+ *    { code: "invalid_invite_code" }.
+ *  - Régénérer le code invalide l'ancien immédiatement.
+ *
  *  Endpoints couverts
  *  ------------------
  *    POST   /api/auth/login          -> LoginResponse          (body : LoginRequest)
+ *    POST   /api/auth/register       -> RegisterResponse        (body : RegisterRequest)
+ *    GET    /api/household/invite-code            -> InviteCodeResponse
+ *    POST   /api/household/invite-code/regenerate -> InviteCodeResponse
  *    GET    /api/wearer              -> WearerProfile
+ *    POST   /api/wearer/allergies              -> Allergy         (body : AddAllergyRequest)
+ *    DELETE /api/wearer/allergies/:id           -> void
+ *    PATCH  /api/wearer/chronic-conditions/:id  -> ChronicCondition (body : UpdateChronicConditionRequest)
  *    GET    /api/status              -> Status
  *    GET    /api/history?range=24h|7d-> HistoryResponse
  *    GET    /api/alerts             -> Alert[]
@@ -74,6 +93,15 @@ export type DevicePlatform = "ios" | "android";
  */
 export type WearerState = "ok" | "warning" | "alert";
 
+/**
+ * Rôle du compte, fixé à l'inscription :
+ *  - "meriid"  : le proche suivi — vue simplifiée, pas d'accès à la
+ *                configuration famille.
+ *  - "famille" : aidant/proche — vue complète (accueil, historique, contacts,
+ *                réglages des rappels, réception des alertes/escalades).
+ */
+export type Role = "meriid" | "famille";
+
 /* ==========================================================================
  *  POST /api/auth/login
  *  --------------------------------------------------------------------------
@@ -93,6 +121,45 @@ export interface LoginResponse {
   token: string;
   /** Date d'expiration du jeton. Passée cette date, refaire un login. */
   expiresAt: IsoDateTime;
+  /** Rôle du compte tel qu'enregistré côté serveur — fait foi sur tout choix local. */
+  role: Role;
+}
+
+/* ==========================================================================
+ *  POST /api/auth/register
+ *  --------------------------------------------------------------------------
+ *  Inscription.
+ *  - role "meriid"  : crée le compte + un nouveau household avec un code
+ *    d'invitation généré côté serveur. `inviteCode` est ignoré s'il est fourni.
+ *  - role "famille" : crée le compte et le rattache au household désigné par
+ *    `inviteCode` (obligatoire). Code inconnu -> 400 + ApiError
+ *    { code: "invalid_invite_code" }.
+ *  - Téléphone déjà utilisé -> 409 + ApiError { code: "phone_taken" }.
+ *  - Connecte automatiquement l'utilisateur (réponse identique à un login).
+ * ========================================================================== */
+
+export interface RegisterRequest {
+  fullName: string;
+  /** Format E.164. */
+  phone: PhoneNumber;
+  password: string;
+  role: Role;
+  /** Obligatoire si role === "famille", ignoré sinon. */
+  inviteCode?: string;
+}
+
+export type RegisterResponse = LoginResponse;
+
+/* ==========================================================================
+ *  GET /api/household/invite-code
+ *  POST /api/household/invite-code/regenerate
+ *  --------------------------------------------------------------------------
+ *  Réservé aux comptes "meriid" (403 + ApiError { code: "unauthorized" }
+ *  sinon). Régénérer invalide immédiatement l'ancien code.
+ * ========================================================================== */
+
+export interface InviteCodeResponse {
+  inviteCode: string;
 }
 
 /* ==========================================================================
@@ -118,21 +185,59 @@ export interface EmergencyContact {
   priority: number;
 }
 
+/** Groupe sanguin ABO/Rhésus, ou null si inconnu/non renseigné. */
+export type BloodType = "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-";
+
+export interface Allergy {
+  id: Id;
+  /** Libellé libre, ex : "Pénicilline". */
+  label: string;
+}
+
+export interface ChronicCondition {
+  id: Id;
+  /** Libellé libre, ex : "Hypertension". */
+  label: string;
+  /** Précisions libres (traitement, suivi…), null si vide. */
+  notes: string | null;
+}
+
 export interface WearerProfile {
   id: Id;
   fullName: string;
   birthDate: IsoDate;
   /** Sexe biologique — sert uniquement à l'affichage (icône, accord). */
   sex: "male" | "female";
-  /** URL absolue d'une photo de profil, ou null si aucune. */
+  /** Ville de résidence, null si non renseignée. */
+  city: string | null;
+  /** URL absolue d'une photo de profil, ou null si aucune (avatar -> initiales). */
   photoUrl: string | null;
-  /**
-   * Informations médicales à montrer à la famille (traitements, allergies,
-   * pathologies). Texte libre, peut contenir des sauts de ligne. null si vide.
-   */
-  medicalNotes: string | null;
+  bloodType: BloodType | null;
+  heightCm: number | null;
+  weightKg: number | null;
+  allergies: Allergy[];
+  chronicConditions: ChronicCondition[];
   /** Contacts d'urgence, triés par `priority` croissante. */
   emergencyContacts: EmergencyContact[];
+}
+
+/* ==========================================================================
+ *  Édition du profil médical
+ *  --------------------------------------------------------------------------
+ *    POST   /api/wearer/allergies              -> Allergy   (body : AddAllergyRequest)
+ *    DELETE /api/wearer/allergies/:id           -> void
+ *    PATCH  /api/wearer/chronic-conditions/:id  -> ChronicCondition (body : UpdateChronicConditionRequest)
+ *  Lecture ouverte aux deux rôles ; écriture réservée au rôle "famille"
+ *  (403 + ApiError { code: "unauthorized" } pour "meriid").
+ * ========================================================================== */
+
+export interface AddAllergyRequest {
+  label: string;
+}
+
+export interface UpdateChronicConditionRequest {
+  label?: string;
+  notes?: string | null;
 }
 
 /* ==========================================================================
@@ -376,9 +481,11 @@ export interface PushMeasurementsRequest {
 /**
  * Codes connus de l'app (le champ `code` peut en contenir d'autres, traités
  * comme "erreur inconnue") :
- *  - "unauthorized"  : 401 — jeton absent / invalide / expiré
- *  - "not_found"     : 404 — ressource inexistante (ex : id d'alerte)
- *  - "invalid_range" : 400 — paramètre `range` de /api/history invalide
+ *  - "unauthorized"         : 401 — jeton absent / invalide / expiré
+ *  - "not_found"            : 404 — ressource inexistante (ex : id d'alerte)
+ *  - "invalid_range"        : 400 — paramètre `range` de /api/history invalide
+ *  - "invalid_invite_code"  : 400 — code d'invitation inconnu (POST /api/auth/register)
+ *  - "phone_taken"          : 409 — téléphone déjà utilisé (POST /api/auth/register)
  */
 export interface ApiError {
   /** Code court et stable, ex : "not_found", "invalid_range", "unauthorized". */
@@ -395,7 +502,17 @@ export interface ApiError {
 
 export interface ApiContract {
   "POST /api/auth/login": { body: LoginRequest; response: LoginResponse };
+  "POST /api/auth/register": { body: RegisterRequest; response: RegisterResponse };
+  "GET /api/household/invite-code": { response: InviteCodeResponse };
+  "POST /api/household/invite-code/regenerate": { response: InviteCodeResponse };
   "GET /api/wearer": { response: WearerProfile };
+  "POST /api/wearer/allergies": { body: AddAllergyRequest; response: Allergy };
+  "DELETE /api/wearer/allergies/:id": { params: { id: Id }; response: void };
+  "PATCH /api/wearer/chronic-conditions/:id": {
+    params: { id: Id };
+    body: UpdateChronicConditionRequest;
+    response: ChronicCondition;
+  };
   "GET /api/status": { response: Status };
   "GET /api/history": { query: { range: HistoryRange }; response: HistoryResponse };
   "GET /api/alerts": { response: AlertsResponse };

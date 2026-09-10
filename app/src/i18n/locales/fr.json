@@ -1,0 +1,125 @@
+{
+  "commun": {
+    "chargement": "Chargement…",
+    "fermer": "Fermer",
+    "reessayer": "Réessayer",
+    "annuler": "Annuler"
+  },
+  "onglets": {
+    "accueil": "Accueil",
+    "historique": "Historique",
+    "profil": "Profil"
+  },
+  "connexion": {
+    "sousTitre": "Suivi santé connecté pour vos proches",
+    "roleMeriid": "Je suis le proche suivi",
+    "roleFamille": "Je suis un membre de la famille",
+    "telephone": "Téléphone",
+    "motDePasse": "Mot de passe",
+    "motDePasseOublie": "Mot de passe oublié ?",
+    "seConnecter": "Se connecter",
+    "creerCompte": "Créer un compte",
+    "erreur": "Numéro ou mot de passe incorrect."
+  },
+  "inscription": {
+    "titre": "Créer un compte",
+    "nomComplet": "Nom complet",
+    "confirmerMotDePasse": "Confirmer le mot de passe",
+    "codeInvitation": "Code d'invitation",
+    "codeInvitationAide": "Demandez ce code à votre proche déjà inscrit.",
+    "creerCompte": "Créer un compte",
+    "dejaCompte": "Déjà un compte ?",
+    "seConnecter": "Se connecter",
+    "erreurMotDePasse": "Les mots de passe ne correspondent pas.",
+    "erreurCodeRequis": "Le code d'invitation est obligatoire."
+  },
+  "accueil": {
+    "salutation": "Bonjour, {{nom}}",
+    "derniereSync": "Dernière synchro {{temps}}",
+    "appelerFamille": "Appeler famille",
+    "contactPrioritaire": "Contact prioritaire : {{nom}}"
+  },
+  "etat": {
+    "ok": "Tout va bien",
+    "warning": "Nécessite attention",
+    "alert": "Urgence"
+  },
+  "vitaux": {
+    "fc": "Fréquence cardiaque",
+    "spo2": "Oxygène sanguin",
+    "batterie": "Batterie du bracelet",
+    "derniereSync": "Dernière synchro",
+    "connectivite": "Connectivité",
+    "enLigne": "En ligne",
+    "horsLigne": "Hors ligne"
+  },
+  "unites": {
+    "bpm": "bpm",
+    "cm": "cm",
+    "kg": "kg"
+  },
+  "alertes": {
+    "type": {
+      "fall": "Chute détectée",
+      "vitals": "Signe vital anormal",
+      "offline": "Bracelet hors ligne"
+    },
+    "taperPourVoir": "Toucher pour voir",
+    "accuser": "Je m'en occupe",
+    "dejaAcquittee": "Pris en charge par {{nom}}",
+    "bandeauTitre": "Alerte non acquittée"
+  },
+  "temps": {
+    "maintenant": "à l'instant",
+    "minutes": "il y a {{count}} min",
+    "heures": "il y a {{count}} h",
+    "jours": "il y a {{count}} j"
+  },
+  "historique": {
+    "bientot": "Bientôt disponible"
+  },
+  "appairage": {
+    "bientot": "Appairage — bientôt disponible"
+  },
+  "erreurs": {
+    "network_error": "Problème de connexion. Vérifiez votre accès internet.",
+    "timeout": "Le serveur met trop de temps à répondre.",
+    "unauthorized": "Session expirée. Merci de vous reconnecter.",
+    "not_found": "Introuvable.",
+    "invalid_range": "Période invalide.",
+    "invalid_invite_code": "Code d'invitation invalide.",
+    "phone_taken": "Ce numéro de téléphone est déjà utilisé.",
+    "inconnu": "Une erreur est survenue."
+  },
+  "profil": {
+    "bientot": "Bientôt disponible",
+    "codeInvitationTitre": "Code d'invitation famille",
+    "codeInvitationAide": "Partagez ce code avec un membre de la famille pour qu'il rejoigne le suivi.",
+    "copier": "Copier",
+    "copie": "Copié !",
+    "regenererCode": "Régénérer le code",
+    "regenererConfirmationTitre": "Régénérer le code ?",
+    "regenererConfirmationMessage": "L'ancien code ne fonctionnera plus. Continuer ?",
+    "regenererConfirmationAnnuler": "Annuler",
+    "regenererConfirmationConfirmer": "Régénérer",
+    "ans": "{{age}} ans",
+    "groupeSanguin": "Groupe sanguin",
+    "tailleEtPoids": "Taille & poids",
+    "allergiesTitre": "Allergies",
+    "ajouterAllergie": "+ Ajouter",
+    "aucuneAllergie": "Aucune allergie connue",
+    "maladiesChroniquesTitre": "Maladies chroniques",
+    "aucuneMaladie": "Aucune maladie chronique connue",
+    "nouvelleAllergiePlaceholder": "Nom de l'allergie",
+    "ajouter": "Ajouter",
+    "enregistrer": "Enregistrer",
+    "champLibelle": "Nom",
+    "champNotes": "Notes",
+    "supprimerAllergieTitre": "Supprimer cette allergie ?",
+    "supprimerAllergieMessage": "« {{label}} » sera retirée de la liste.",
+    "supprimer": "Supprimer",
+    "modifierMaladieTitre": "Modifier",
+    "deconnexion": "Déconnexion",
+    "deconnexionConfirmationTitre": "Voulez-vous vraiment vous déconnecter ?"
+  }
+}

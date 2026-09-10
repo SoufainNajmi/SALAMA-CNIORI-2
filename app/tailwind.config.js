@@ -1,8 +1,13 @@
 /**
  * Configuration Tailwind / NativeWind.
- * Les couleurs d'état (`etat.ok` / `etat.warning` / `etat.alert`) sont
- * référencées à la fois par des classes (`bg-etat-alert`) et par le thème JS
- * (src/theme/colors.ts) — garder les deux synchronisés.
+ *
+ * Design tokens couleur — garder synchronisés avec src/theme/colors.ts.
+ * Le rouge (`critical`) est réservé à l'état SOS actif : ne pas l'utiliser
+ * comme couleur d'accent ou de branding ailleurs dans l'app.
+ *
+ * Les couleurs d'état (`etat.ok` / `etat.warning` / `etat.alert`, utilisées
+ * par `bg-etat-alert` etc.) référencent ces mêmes tokens pour rester
+ * cohérentes.
  */
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -16,10 +21,24 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        primary: "#1e3a5f",
+        primaryLight: "#3b6ea5",
+        primarySoft: "#e8eef5",
+        bg: "#f7f9fb",
+        surface: "#ffffff",
+        text: "#1a2332",
+        textSoft: "#64748b",
+        border: "#e2e8f0",
+        ok: "#0d9488",
+        okSoft: "#e6f5f3",
+        warn: "#d97706",
+        warnSoft: "#fef3e2",
+        critical: "#dc2626",
+        criticalSoft: "#fdeaea",
         etat: {
-          ok: "#15803d",
-          warning: "#c2410c",
-          alert: "#b91c1c",
+          ok: "#0d9488",
+          warning: "#d97706",
+          alert: "#dc2626",
         },
       },
     },
