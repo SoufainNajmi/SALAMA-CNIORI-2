@@ -109,6 +109,40 @@
     "deconnexion": "Log out",
     "deconnexionConfirmationTitre": "Are you sure you want to log out?"
   },
+  "medicaments": {
+    "titre": "Treatments",
+    "ajouter": "+ Add",
+    "ajouterTitre": "Add a treatment",
+    "modifierTitre": "Edit treatment",
+    "aucunTraitement": "No treatment recorded",
+    "champCondition": "Condition / illness",
+    "champMedicament": "Medication name",
+    "champDose": "Dose",
+    "champInstructions": "Instructions",
+    "instructionsPlaceholder": "e.g. before meals, on an empty stomach",
+    "champNotes": "Notes",
+    "champDateDebut": "Start date",
+    "champDateFin": "End date",
+    "datePlaceholder": "YYYY-MM-DD",
+    "periode": "From {{debut}} to {{fin}}",
+    "depuisLe": "Since {{debut}}",
+    "jusquAu": "Until {{fin}}",
+    "horairesTitre": "Times",
+    "horairePlaceholder": "HH:MM",
+    "ajouterHoraire": "+ Add a time",
+    "horaireLabel": {
+      "matin": "Morning",
+      "midi": "Midday",
+      "soir": "Evening",
+      "autre": "Other"
+    },
+    "erreurChampsObligatoires": "Condition and medication name are required.",
+    "erreurHoraireInvalide": "A time is invalid (expected format HH:MM).",
+    "erreurDateInvalide": "A date is invalid (expected format YYYY-MM-DD).",
+    "erreurDateOrdre": "The end date must be on or after the start date.",
+    "supprimerTitre": "Delete this treatment?",
+    "supprimerMessage": "\"{{name}}\" will be removed from the list."
+  },
   "appairage": {
     "bientot": "Pairing — coming soon"
   },
@@ -120,6 +154,7 @@
     "invalid_range": "Invalid time range.",
     "invalid_invite_code": "Invalid invitation code.",
     "phone_taken": "This phone number is already in use.",
+    "no_bracelet_data": "No bracelet data available yet.",
     "inconnu": "Something went wrong."
   }
 }

@@ -13,7 +13,7 @@
  * Passer à `false` uniquement quand le backend est disponible ET que
  * EXPO_PUBLIC_API_URL est renseigné dans .env.
  */
-export const USE_MOCKS = true;
+export const USE_MOCKS = false;
 
 /** URL de base du backend, injectée au build par Expo (préfixe EXPO_PUBLIC_). */
 export const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL ?? "";

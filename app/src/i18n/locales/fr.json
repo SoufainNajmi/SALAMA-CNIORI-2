@@ -89,6 +89,7 @@
     "invalid_range": "Période invalide.",
     "invalid_invite_code": "Code d'invitation invalide.",
     "phone_taken": "Ce numéro de téléphone est déjà utilisé.",
+    "no_bracelet_data": "Aucune donnée de bracelet disponible pour le moment.",
     "inconnu": "Une erreur est survenue."
   },
   "profil": {
@@ -121,5 +122,39 @@
     "modifierMaladieTitre": "Modifier",
     "deconnexion": "Déconnexion",
     "deconnexionConfirmationTitre": "Voulez-vous vraiment vous déconnecter ?"
+  },
+  "medicaments": {
+    "titre": "Traitements",
+    "ajouter": "+ Ajouter",
+    "ajouterTitre": "Ajouter un traitement",
+    "modifierTitre": "Modifier le traitement",
+    "aucunTraitement": "Aucun traitement enregistré",
+    "champCondition": "Condition / maladie",
+    "champMedicament": "Nom du médicament",
+    "champDose": "Dose",
+    "champInstructions": "Instructions",
+    "instructionsPlaceholder": "ex : avant repas, à jeun",
+    "champNotes": "Notes",
+    "champDateDebut": "Date de début",
+    "champDateFin": "Date de fin",
+    "datePlaceholder": "AAAA-MM-JJ",
+    "periode": "Du {{debut}} au {{fin}}",
+    "depuisLe": "Depuis le {{debut}}",
+    "jusquAu": "Jusqu'au {{fin}}",
+    "horairesTitre": "Horaires de prise",
+    "horairePlaceholder": "HH:MM",
+    "ajouterHoraire": "+ Ajouter un horaire",
+    "horaireLabel": {
+      "matin": "Matin",
+      "midi": "Midi",
+      "soir": "Soir",
+      "autre": "Autre"
+    },
+    "erreurChampsObligatoires": "La condition et le nom du médicament sont obligatoires.",
+    "erreurHoraireInvalide": "Un horaire est invalide (format attendu HH:MM).",
+    "erreurDateInvalide": "Une date est invalide (format attendu AAAA-MM-JJ).",
+    "erreurDateOrdre": "La date de fin doit être postérieure ou égale à la date de début.",
+    "supprimerTitre": "Supprimer ce traitement ?",
+    "supprimerMessage": "« {{name}} » sera retiré de la liste."
   }
 }

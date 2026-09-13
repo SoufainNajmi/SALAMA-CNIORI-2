@@ -5,12 +5,14 @@
 import type {
   AckAlertRequest,
   AddAllergyRequest,
+  AddMedicationRequest,
   HistoryRange,
   LoginRequest,
   PushMeasurementsRequest,
   RegisterDeviceRequest,
   RegisterRequest,
   UpdateChronicConditionRequest,
+  UpdateMedicationRequest,
 } from "@/types/api";
 import type { ApiClient } from "../api";
 import { delaiSimule } from "./latency";
@@ -21,6 +23,12 @@ import {
   inviteCodeMock,
   regenererInviteCodeMock,
 } from "./household.mock";
+import {
+  ajouterMedicamentMock,
+  medicationsSnapshotMock,
+  modifierMedicamentMock,
+  retirerMedicamentMock,
+} from "./medications.mock";
 import { statusMock } from "./status.mock";
 import {
   ajouterAllergieMock,
@@ -63,6 +71,15 @@ export const mockApi: ApiClient = {
 
   updateChronicCondition: (id: string, body: UpdateChronicConditionRequest) =>
     delaiSimule(modifierMaladieChroniqueMock(id, body), 400),
+
+  getMedications: () => delaiSimule(medicationsSnapshotMock()),
+
+  addMedication: (body: AddMedicationRequest) => delaiSimule(ajouterMedicamentMock(body), 400),
+
+  updateMedication: (id: string, body: UpdateMedicationRequest) =>
+    delaiSimule(modifierMedicamentMock(id, body), 400),
+
+  removeMedication: (id: string) => delaiSimule(retirerMedicamentMock(id), 300),
 
   getStatus: () => delaiSimule(statusMock()),
 
