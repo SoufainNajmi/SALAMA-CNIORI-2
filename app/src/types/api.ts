@@ -51,6 +51,10 @@
  *    POST   /api/wearer/allergies              -> Allergy         (body : AddAllergyRequest)
  *    DELETE /api/wearer/allergies/:id           -> void
  *    PATCH  /api/wearer/chronic-conditions/:id  -> ChronicCondition (body : UpdateChronicConditionRequest)
+ *    GET    /api/medications         -> Medication[]
+ *    POST   /api/medications         -> Medication              (body : AddMedicationRequest)
+ *    PUT    /api/medications/:id     -> Medication              (body : UpdateMedicationRequest)
+ *    DELETE /api/medications/:id     -> void
  *    GET    /api/status              -> Status
  *    GET    /api/history?range=24h|7d-> HistoryResponse
  *    GET    /api/alerts             -> Alert[]
@@ -238,6 +242,73 @@ export interface AddAllergyRequest {
 export interface UpdateChronicConditionRequest {
   label?: string;
   notes?: string | null;
+}
+
+/* ==========================================================================
+ *  Traitements (médicaments)
+ *  --------------------------------------------------------------------------
+ *    GET    /api/medications      -> Medication[]
+ *    POST   /api/medications      -> Medication (body : AddMedicationRequest)
+ *    PUT    /api/medications/:id  -> Medication (body : UpdateMedicationRequest)
+ *    DELETE /api/medications/:id  -> void
+ *  Lecture ouverte aux deux rôles ; écriture réservée au rôle "famille"
+ *  (même règle que les allergies/maladies chroniques ci-dessus).
+ * ========================================================================== */
+
+/** Moment de la journée d'un horaire de prise — choisi explicitement à la
+ *  saisie (pas déduit de l'heure : aucun seuil matin/midi/soir n'est posé). */
+export type MedicationTimeLabel = "matin" | "midi" | "soir" | "autre";
+
+export interface MedicationTime {
+  id: Id;
+  /** "HH:MM", 24h. */
+  timeOfDay: string;
+  label: MedicationTimeLabel;
+}
+
+export interface Medication {
+  id: Id;
+  /** Condition/maladie visée, texte libre (pas forcément dans chronicConditions). */
+  conditionLabel: string;
+  name: string;
+  /** Ex : "5mg", null si non renseigné. */
+  dose: string | null;
+  /** Ex : "avant repas", "à jeun" — texte libre, null si non renseigné. */
+  instructions: string | null;
+  notes: string | null;
+  /** "AAAA-MM-JJ" ou null. */
+  startDate: IsoDate | null;
+  /** "AAAA-MM-JJ" ou null — null = traitement permanent/en cours. */
+  endDate: IsoDate | null;
+  times: MedicationTime[];
+}
+
+export interface MedicationTimeInput {
+  timeOfDay: string;
+  label: MedicationTimeLabel;
+}
+
+export interface AddMedicationRequest {
+  conditionLabel: string;
+  name: string;
+  dose?: string | null;
+  instructions?: string | null;
+  notes?: string | null;
+  startDate?: IsoDate | null;
+  endDate?: IsoDate | null;
+  /** Au moins un horaire requis. */
+  times: MedicationTimeInput[];
+}
+
+export interface UpdateMedicationRequest {
+  conditionLabel: string;
+  name: string;
+  dose?: string | null;
+  instructions?: string | null;
+  notes?: string | null;
+  startDate?: IsoDate | null;
+  endDate?: IsoDate | null;
+  times: MedicationTimeInput[];
 }
 
 /* ==========================================================================
@@ -513,6 +584,14 @@ export interface ApiContract {
     body: UpdateChronicConditionRequest;
     response: ChronicCondition;
   };
+  "GET /api/medications": { response: Medication[] };
+  "POST /api/medications": { body: AddMedicationRequest; response: Medication };
+  "PUT /api/medications/:id": {
+    params: { id: Id };
+    body: UpdateMedicationRequest;
+    response: Medication;
+  };
+  "DELETE /api/medications/:id": { params: { id: Id }; response: void };
   "GET /api/status": { response: Status };
   "GET /api/history": { query: { range: HistoryRange }; response: HistoryResponse };
   "GET /api/alerts": { response: AlertsResponse };

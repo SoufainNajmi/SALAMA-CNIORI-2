@@ -12,17 +12,20 @@ import type {
   AlertsResponse,
   Allergy,
   ChronicCondition,
+  AddMedicationRequest,
   HistoryRange,
   HistoryResponse,
   InviteCodeResponse,
   LoginRequest,
   LoginResponse,
+  Medication,
   PushMeasurementsRequest,
   RegisterDeviceRequest,
   RegisterRequest,
   RegisterResponse,
   Status,
   UpdateChronicConditionRequest,
+  UpdateMedicationRequest,
   WearerProfile,
 } from "@/types/api";
 import { USE_MOCKS } from "./config";
@@ -42,6 +45,10 @@ export interface ApiClient {
     id: string,
     body: UpdateChronicConditionRequest,
   ): Promise<ChronicCondition>;
+  getMedications(): Promise<Medication[]>;
+  addMedication(body: AddMedicationRequest): Promise<Medication>;
+  updateMedication(id: string, body: UpdateMedicationRequest): Promise<Medication>;
+  removeMedication(id: string): Promise<void>;
   getStatus(): Promise<Status>;
   getHistory(range: HistoryRange): Promise<HistoryResponse>;
   getAlerts(): Promise<AlertsResponse>;

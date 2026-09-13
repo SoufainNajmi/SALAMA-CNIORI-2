@@ -6,6 +6,7 @@ import type {
   AckAlertRequest,
   AckAlertResponse,
   AddAllergyRequest,
+  AddMedicationRequest,
   AlertsResponse,
   Allergy,
   ChronicCondition,
@@ -14,12 +15,14 @@ import type {
   InviteCodeResponse,
   LoginRequest,
   LoginResponse,
+  Medication,
   PushMeasurementsRequest,
   RegisterDeviceRequest,
   RegisterRequest,
   RegisterResponse,
   Status,
   UpdateChronicConditionRequest,
+  UpdateMedicationRequest,
   WearerProfile,
 } from "@/types/api";
 import type { ApiClient } from "../api";
@@ -53,6 +56,17 @@ export const httpApi: ApiClient = {
     httpClient
       .patch<ChronicCondition>(`/api/wearer/chronic-conditions/${encodeURIComponent(id)}`, body)
       .then((r) => r.data),
+
+  getMedications: () => httpClient.get<Medication[]>("/api/medications").then((r) => r.data),
+
+  addMedication: (body: AddMedicationRequest) =>
+    httpClient.post<Medication>("/api/medications", body).then((r) => r.data),
+
+  updateMedication: (id: string, body: UpdateMedicationRequest) =>
+    httpClient.put<Medication>(`/api/medications/${encodeURIComponent(id)}`, body).then((r) => r.data),
+
+  removeMedication: (id: string) =>
+    httpClient.delete(`/api/medications/${encodeURIComponent(id)}`).then(() => undefined),
 
   getStatus: () => httpClient.get<Status>("/api/status").then((r) => r.data),
 

@@ -10,6 +10,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { ScreenContainer } from "@/components/ScreenContainer";
 import { InviteCodeCard } from "@/components/InviteCodeCard";
 import { MedicalProfileSection } from "@/components/MedicalProfileSection";
+import { MedicationsSection } from "@/components/MedicationsSection";
 import { COULEURS } from "@/theme/colors";
 import { confirmerAction } from "@/lib/confirmer";
 import { useAuthStore } from "@/store/useAuthStore";
@@ -37,6 +38,7 @@ export default function ProfilScreen() {
         <View style={{ gap: 16, flex: 1 }}>
           {role === "meriid" ? <InviteCodeCard /> : null}
           <MedicalProfileSection modifiable={role === "famille"} />
+          <MedicationsSection modifiable={role === "famille"} />
 
           <View
             className="items-center mt-8 pt-6"

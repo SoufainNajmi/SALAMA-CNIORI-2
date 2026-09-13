@@ -109,6 +109,40 @@
     "deconnexion": "تسجيل الخروج",
     "deconnexionConfirmationTitre": "هل تريد فعلاً تسجيل الخروج؟"
   },
+  "medicaments": {
+    "titre": "العلاجات",
+    "ajouter": "+ إضافة",
+    "ajouterTitre": "إضافة علاج",
+    "modifierTitre": "تعديل العلاج",
+    "aucunTraitement": "لا يوجد علاج مسجل",
+    "champCondition": "الحالة / المرض",
+    "champMedicament": "اسم الدواء",
+    "champDose": "الجرعة",
+    "champInstructions": "التعليمات",
+    "instructionsPlaceholder": "مثال: قبل الأكل، على معدة فارغة",
+    "champNotes": "ملاحظات",
+    "champDateDebut": "تاريخ البدء",
+    "champDateFin": "تاريخ الانتهاء",
+    "datePlaceholder": "سسسس-شش-يي",
+    "periode": "من {{debut}} إلى {{fin}}",
+    "depuisLe": "منذ {{debut}}",
+    "jusquAu": "إلى غاية {{fin}}",
+    "horairesTitre": "مواعيد الأخذ",
+    "horairePlaceholder": "س:د",
+    "ajouterHoraire": "+ إضافة موعد",
+    "horaireLabel": {
+      "matin": "الصباح",
+      "midi": "الظهر",
+      "soir": "المساء",
+      "autre": "آخر"
+    },
+    "erreurChampsObligatoires": "الحالة واسم الدواء إلزاميان.",
+    "erreurHoraireInvalide": "أحد المواعيد غير صالح (الصيغة المطلوبة س:د).",
+    "erreurDateInvalide": "أحد التواريخ غير صالح (الصيغة المطلوبة سسسس-شش-يي).",
+    "erreurDateOrdre": "يجب أن يكون تاريخ الانتهاء بعد تاريخ البدء أو مساويًا له.",
+    "supprimerTitre": "حذف هذا العلاج؟",
+    "supprimerMessage": "سيتم حذف «{{name}}» من القائمة."
+  },
   "appairage": {
     "bientot": "الإقران — قريبًا"
   },
@@ -120,6 +154,7 @@
     "invalid_range": "المدة الزمنية غير صالحة.",
     "invalid_invite_code": "رمز الدعوة غير صالح.",
     "phone_taken": "رقم الهاتف هذا مستخدم بالفعل.",
+    "no_bracelet_data": "لا تتوفر بيانات السوار بعد.",
     "inconnu": "حدث خطأ ما."
   }
 }
