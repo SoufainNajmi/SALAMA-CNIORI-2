@@ -52,6 +52,9 @@ CREATE TABLE medical_profiles (
   height_cm SMALLINT UNSIGNED NULL,
   weight_kg SMALLINT UNSIGNED NULL,
   birth_date DATE NULL,
+  -- Non capturé à l'inscription ni éditable dans l'app pour l'instant (voir
+  -- GET /api/wearer) : reste NULL tant qu'aucun écran ne le renseigne.
+  sex ENUM('male','female') NULL,
   city VARCHAR(80) NULL,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
@@ -77,8 +80,19 @@ CREATE TABLE chronic_conditions (
 CREATE TABLE medications (
   id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
   user_id CHAR(36) NOT NULL,
+  -- Condition/maladie associée, texte libre (même style que chronic_conditions.label ;
+  -- pas de FK vers chronic_conditions car un traitement peut viser une condition
+  -- ponctuelle non listée là-bas). Voir GET/POST /api/medications.
+  condition_label VARCHAR(120) NOT NULL,
   name VARCHAR(120) NOT NULL,
-  dose VARCHAR(40) NOT NULL,                   -- ex: "500mg"
+  dose VARCHAR(40) NULL,                       -- ex: "500mg"
+  instructions VARCHAR(255) NULL,              -- ex: "avant repas", "à jeun" ; texte libre
+  notes TEXT NULL,
+  -- end_date NULL = traitement permanent/en cours ; non-NULL = terminé/ponctuel.
+  -- Aucune contrainte DB entre les deux (validée côté API) : les renseigner
+  -- l'un sans l'autre est un usage valide (ex: date de fin connue seule).
+  start_date DATE NULL,
+  end_date DATE NULL,
   reminder_enabled BOOLEAN NOT NULL DEFAULT TRUE,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
